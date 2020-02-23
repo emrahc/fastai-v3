@@ -10,18 +10,20 @@ from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 
 export_file_url = 'https://www.googleapis.com/drive/v3/files/1NfJuVQfmBeOdqWU_WswqnYj1rjWGhyX0?alt=media&key=AIzaSyBDyFBX_-HZccGfvsqc1O3EvRsYARZRPww'
-export_file_name = 'export.pkl'
+export_file_name = '1NfJuVQfmBeOdqWU_WswqnYj1rjWGhyX0'
 
 classes = ['umut', 'erdil', 'yiğit']
 path = Path(__file__).parent
 
 app = Starlette()
-app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
+app.add_middleware(CORSMiddleware, allow_origins=[
+                   '*'], allow_headers=['X-Requested-With', 'Content-Type'])
 app.mount('/static', StaticFiles(directory='app/static'))
 
 
 async def download_file(url, dest):
-    if dest.exists(): return
+    if dest.exists():
+        return
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             data = await response.read()
