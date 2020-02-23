@@ -21,15 +21,26 @@ function analyze() {
   el("analyze-button").innerHTML = "Analyzing...";
   var xhr = new XMLHttpRequest();
   var loc = window.location;
-  xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`,
-    true);
+  xhr.open(
+    "POST",
+    `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`,
+    true
+  );
   xhr.onerror = function() {
     alert(xhr.responseText);
   };
   xhr.onload = function(e) {
     if (this.readyState === 4) {
       var response = JSON.parse(e.target.responseText);
-      el("result-label").innerHTML = `Result = ${response["result"]}`;
+      if (response === "erdil") {
+        el(
+          "result-label"
+        ).innerHTML = `Result = ${response["Erdil Yaşaroğlu"]}`;
+      } else if (response === "umut") {
+        el("result-label").innerHTML = `Result = ${response["Umut Sarıkaya"]}`;
+      } else if (response === "yiğit") {
+        el("result-label").innerHTML = `Result = ${response["Yiğit Özgür"]}`;
+      }
     }
     el("analyze-button").innerHTML = "Analyze";
   };
@@ -38,4 +49,3 @@ function analyze() {
   fileData.append("file", uploadFiles[0]);
   xhr.send(fileData);
 }
-
