@@ -16,9 +16,9 @@ function showPicked(input) {
 
 function analyze() {
   var uploadFiles = el("file-input").files;
-  if (uploadFiles.length !== 1) alert("Please select a file to analyze!");
+  if (uploadFiles.length !== 1) alert("Analiz için bir dosya seçiniz!!");
 
-  el("analyze-button").innerHTML = "Analyzing...";
+  el("analyze-button").innerHTML = "Analiz Ediliyor...";
   var xhr = new XMLHttpRequest();
   var loc = window.location;
   xhr.open(
@@ -32,17 +32,9 @@ function analyze() {
   xhr.onload = function(e) {
     if (this.readyState === 4) {
       var response = JSON.parse(e.target.responseText);
-      if (response === "erdil") {
-        el(
-          "result-label"
-        ).innerHTML = `Result = ${response["Erdil Yaşaroğlu"]}`;
-      } else if (response === "umut") {
-        el("result-label").innerHTML = `Result = ${response["Umut Sarıkaya"]}`;
-      } else if (response === "yiğit") {
-        el("result-label").innerHTML = `Result = ${response["Yiğit Özgür"]}`;
-      }
+      el("result-label").innerHTML = `Result = ${response["result"]}`;
     }
-    el("analyze-button").innerHTML = "Analyze";
+    el("analyze-button").innerHTML = "Analiz";
   };
 
   var fileData = new FormData();
