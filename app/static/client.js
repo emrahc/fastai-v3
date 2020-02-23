@@ -32,13 +32,12 @@ function analyze() {
   xhr.onload = function(e) {
     if (this.readyState === 4) {
       var response = JSON.parse(e.target.responseText);
+      console.log(response);
       if (response === "erdil") {
         el("result-label").innerHTML = `Karikatürist = Erdil Yaşaroğlu`;
-      }
-      if (response === "umut") {
+      } else if (response === "umut") {
         el("result-label").innerHTML = `Karikatürist = Umut Sarıkaya`;
-      }
-      if (response === "yiğit") {
+      } else if (response === "yiğit") {
         el("result-label").innerHTML = `Karikatürist = Yiğit Özgür`;
       }
     }
